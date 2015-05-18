@@ -1,0 +1,38 @@
+#indexbody{
+    padding-top:80px !important; 
+    background-image: url('../img/gb_gori.jpg') !important;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+
+#musica{
+    background-image: url('../img/play_bueno.png');
+    background-position: 80px;
+    position: relative;
+    margin-top: 7px;
+}
+
+#containerlogin{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    opacity: 0.8;
+
+}
+
+#finestrajoc{
+    width: 750px;
+    height: 450px;
+    border: 4px dotted black;
+    float: left;
+    opacity: 1 !important;
+}
+
+#controlsjoc{
+    width: 250px;
+    height: 450px;
+    border: 1px solid black;
+    float: right;
+}
+
+

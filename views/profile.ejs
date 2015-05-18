@@ -1,0 +1,106 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+    <head>
+        <title>Gorilla[js] | Perfil</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>   
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>  
+        
+        <script>
+            var mySound = new buzz.sound("sound/juliancalor.mp3");
+            var played = false;
+            $(document).ready(function(){
+                $('#musica').click(function(){
+                    mySound.togglePlay().loop();
+                    if(!played){
+                       // $(this).text("MUSIC ON");
+                        $(this).css("background-position","0px 0px");
+                        played = true;
+                    }else{
+                       // $(this).text("MUSIC OFF");
+                        $(this).css("background-position","80px 0px");
+                        played = false;
+                    }
+                });      
+            });
+        </script>
+        <style>
+            
+            body        { padding-top:40px; word-wrap:break-word; }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img style="width: 140px; " src="img/logo_final.png" />
+                </div>
+                <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-left: 10px">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="/selectgamemode">Jugar</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>MUSICA</a></li>
+                        <li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
+                        <li><a href="../navbar-static-top/">Static top</a></li>
+                        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+
+
+        <div class="container">
+
+            <div class="page-header text-center">
+                <h1><span class="fa fa-anchor"></span> Perfil de l'Usuari</h1>
+                <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+            </div>
+
+            <div class="row">
+
+                <!-- LOCAL INFORMATION -->
+                <div class="col-sm-6">
+                    <div class="well">
+                        <h3><span class="fa fa-user"> <%= user.local.username %></span></h3>
+
+                        <p>
+                            <strong>id</strong>: <%= user._id %><br>
+                            <strong>Nom d'usuari</strong>: <%= user.local.username %><br>
+                            <strong>Contrasenya cifrada</strong>: <%= user.local.password %>
+                        </p>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+</html>
+

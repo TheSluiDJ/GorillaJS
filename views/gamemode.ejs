@@ -1,0 +1,119 @@
+<!-- views/gamemode.ejs -->
+<!doctype html>
+<html>
+    <head>
+        <title>Gorilla[js] | Selecciona el mode de joc</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/buttons/default.css" />
+        <link rel="stylesheet" type="text/css" href="css/buttons/component.css" />
+        <script src="js/classie.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>  
+        <script>
+            $(document).ready(function(){
+                $('#vscpu').click(function(){
+                    setTimeout(function () {
+                        window.location.href = "/vscpu"; 
+                    }, 1200); //Redirigira al cap de 1.2 Segons
+
+                });
+                $('#lanmode').click(function(){
+                    setTimeout(function () {
+                        window.location.href = "/lanmode"; 
+                    }, 1200); //Redirigira al cap de 1.2 Segons
+
+                });
+
+            });
+        </script>
+    </head>
+    <body id="indexbody">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img style="width: 140px; " src="img/logo_final.png" />
+                </div>
+                <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-left: 10px">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="/selectgamemode">Jugar</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>MUSICA</a></li>
+                        <li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
+                        <li><a href="../navbar-static-top/">Static top</a></li>
+                        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container" style="opacity: 0.8 !important">
+
+            <div class="jumbotron text-center">
+                <h1><span class="fa"></span>Selecciona el mode de joc</h1>
+
+                <section class="color-8">
+                    <p class="perspective">
+                        <button id="vscpu" class="btn btn-8 btn-8g"><%= user.local.username %> vs CPU</button>
+                    </p>
+                    <p class="perspective">
+                        <button id="lanmode" class="btn btn-8 btn-8g">LAN MODE</button>
+                    </p>
+                </section>
+            </div>
+        </div>
+        <script>
+            var buttons7Click = Array.prototype.slice.call( document.querySelectorAll( '#btn-click button' ) ),
+                buttons9Click = Array.prototype.slice.call( document.querySelectorAll( 'button.btn-8g' ) ),
+                totalButtons7Click = buttons7Click.length,
+                totalButtons9Click = buttons9Click.length;
+
+            buttons7Click.forEach( function( el, i ) { el.addEventListener( 'click', activate, false ); } );
+            buttons9Click.forEach( function( el, i ) { el.addEventListener( 'click', activate, false ); } );
+
+            function activate() {
+                var self = this, activatedClass = 'btn-activated';
+
+                if( classie.has( this, 'btn-7h' ) ) {
+                    // if it is the first of the two btn-7h then activatedClass = 'btn-error';
+                    // if it is the second then activatedClass = 'btn-success'
+                    activatedClass = buttons7Click.indexOf( this ) === totalButtons7Click-2 ? 'btn-error' : 'btn-success';
+                }
+                else if( classie.has( this, 'btn-8g' ) ) {
+                    // if it is the first of the two btn-8g then activatedClass = 'btn-success3d';
+                    // if it is the second then activatedClass = 'btn-error3d'
+                    activatedClass = buttons9Click.indexOf( this ) === totalButtons9Click-2 ? 'btn-success3d' : 'btn-error3d';
+                }
+
+                if( !classie.has( this, activatedClass ) ) {
+                    classie.add( this, activatedClass );
+                    setTimeout( function() { classie.remove( self, activatedClass ) }, 1000 );
+                }
+            }
+
+
+        </script>
+    </body>
+</html>
+

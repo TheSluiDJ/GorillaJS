@@ -1,0 +1,178 @@
+<!-- views/gamemode.ejs -->
+<!doctype html>
+<html>
+    <head>
+        <title>Gorilla[js] | <%= user.local.username %> vs CPU</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/buttons/default.css" />
+<link rel="stylesheet" type="text/css" href="css/buttons/component.css" />-->
+        <script src="js/classie.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">        
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="js/circular-slider.min.js"></script>
+        <link rel="stylesheet" href="css/circular-slider.min.css">
+        <script src="js/snap.svg-min.js"></script>   
+        <script src="js/engine/vscpu.js"></script>  
+
+        <script>
+            var backgrounds = new Array("lluna.svg","selva.png","ciutat.png");
+            $(document).ready(function(){
+                $("#boto_llensador").click(function(){
+                    var player1snap = Snap("#monosvg");
+                    var allmono = Snap("#g4339");
+                    //var bras = $("#bras_llensador");
+                    var bras = player1snap.select('#bras_dret');
+
+                    //bras.css("display","none");
+                    //bras.rotate(45);
+                    //alert("eee");
+
+
+                    //DESCOMEEEEEEEEEENTTTTTTTTTTTTTTTTTTTTTAAAAAAAAAAAAAAAAAAAAAAR !!!!!!!!!!!
+                    //!!!!!!!!!!!!!!!!!!!
+                    bras.animate(
+                        {transform: 'r-75,135,135'},600,mina.bounce,function(){
+                            //alert("ei");
+                            bras.animate({transform: '0,0'},600,mina.elastic);
+                            
+                        });
+
+
+                    /*allmono.animate({
+                        transform: '2'},3000,mina.bounce);*/
+                });
+                var circularSlider = $('#slider').CircularSlider({ 
+                    min : 0, 
+                    max: 360, 
+                    value : 0,
+                    labelSuffix: "°",
+                    slide : function(ui,value) {
+                        ui.next().css({'background' : 'linear-gradient(' + value + 
+                                       'deg, white, cornsilk, white)'});
+                    }
+                });
+                var circularSlider2 = $('#slider2').CircularSlider({ 
+                    min : 0, 
+                    max: 360, 
+                    value : 0,
+                    labelSuffix: "",
+                    slide : function(ui,value) {
+                        ui.next().css({'background' : 'linear-gradient(' + value + 
+                                       'deg, white, cornsilk, white)'});
+                    }
+                });
+                //INICIALITZEM OBJECTES I JOC EN GENERAL
+                init();
+
+
+                //alert($("#lluna_sorpresa"));
+            });
+            //$("path_4410").css("display","none");
+
+            /*$(document).ready(function(){
+                $( "#slider-vertical" ).slider({
+                    orientation: "vertical",
+                    range: "min",
+                    min: 0,
+                    max: 100,
+                    value: 60,
+                    slide: function( event, ui ) {
+                        $( "#amount" ).val( ui.value );
+                    }
+                });
+                $( "#slider-vertical2" ).slider({
+                    orientation: "vertical",
+                    range: "min",
+                    min: 0,
+                    max: 100,
+                    value: 60,
+                    slide: function( event, ui ) {
+                        $( "#velocitat" ).val( ui.value );
+                    }
+                });*/
+
+
+
+            //});
+            $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+        </script>
+    </head>
+    <body id="indexbody">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img style="width: 140px; " src="img/logo_final.png" />
+                </div>
+                <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-left: 10px">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="/selectgamemode">Jugar</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>MUSICA</a></li>
+                        <li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
+                        <li><a href="../navbar-static-top/">Static top</a></li>
+                        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+
+            <div class="jumbotron text-center">
+                <h1><span class="fa"></span><%= user.local.username %> vs CPU</h1>
+                <svg id="finestrajoc"></svg>
+                <div id="controlsjoc">
+
+                    <p>
+                        <label>Angles:</label>
+                    <div id="slider"></div>
+
+                    </p>
+                <p>
+                    <label>Velocitat:</label>
+                <div id="slider2"></div>
+
+                </p>
+            <button id="boto_llensador" type="button" class="btn btn-success">GO!</button>
+            <!--
+<div id="slider-vertical" style="height:200px; margin: 0px auto;"></div>
+<p>
+<label for="amount">Velocitat:</label>
+<input type="text" id="velocitat" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+<div id="slider-vertical2" style="height:200px; margin: 0px auto;"></div>-->
+        </div>
+        <div id="footer">
+            <span style="color: black !important">Developed by: Marc Parra</span>
+        </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
