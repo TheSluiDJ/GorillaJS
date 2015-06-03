@@ -1,0 +1,79 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+    <head>
+        <title>Gorilla[js] | Ranking de punts</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>   
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <style>
+
+            body        { padding-top:40px; word-wrap:break-word; }
+        </style>
+    </head>
+    <body id="indexbody">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img style="width: 140px; " src="img/logo_final.png" />
+                </div>
+                <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-left: 10px">
+                        <li class="active"><a href="/profile">Perfil</a></li>
+                        <li><a href="/selectgamemode">Seleccio Mode de Joc</a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/ranking">Consultar Ranking global</a></li>
+                        <li><a href="/logout">Tancar Sessió</a></li>
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+
+
+        <div class="container" style="background-color: whitesmoke; opacity: 0.9; border-radius: 8px;">
+
+            <div class="page-header text-center">
+                <h1><i class="fa fa-bar-chart"></i> Ranking Global</h1>
+                <!--<a href="/logout" class="btn btn-default btn-sm">Logout</a>-->
+            </div>
+
+            <div class="row">
+
+                <!-- LOCAL INFORMATION -->
+                <div class="col-sm-6" style="width: 100%; text-align:center">
+                    <div class="well">
+                        <h3><span class="fa fa-user"> <%= user.local.username %></span></h3>
+
+                        <p>
+                            <strong>id</strong>: <%= user._id %><br>
+                            <strong>Nom d'usuari</strong>: <%= user.local.username %><br>
+                            <strong>Contrasenya cifrada</strong>: <%= user.local.password %></br>
+                    <strong>Punts</strong>: <%= user.local.punts %>
+                    </p>
+
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+

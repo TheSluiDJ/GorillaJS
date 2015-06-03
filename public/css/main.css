@@ -1,3 +1,15 @@
+@font-face{
+    font-family: 'gorilla';
+    src: url(../../fonts/Generally_Speaking.ttf);
+}
+
+h1{
+    font-family: gorilla !important;
+}
+h3{
+    font-family: gorilla !important;
+}
+
 #indexbody{
     padding-top:80px !important; 
     background-image: url('../img/gb_gori.jpg') !important;
@@ -23,7 +35,7 @@
 #finestrajoc{
     width: 750px;
     height: 450px;
-    border: 4px dotted black;
+    border: 2px solid black;
     float: left;
     opacity: 1 !important;
 }
@@ -31,8 +43,125 @@
 #controlsjoc{
     width: 250px;
     height: 450px;
-    border: 1px solid black;
+    border: 3px solid rgb(255,189,69);
     float: right;
+    border-radius: 50px;
 }
 
 
+/* PROVAA */
+
+#ball {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: red;
+    position: absolute;
+    left: 0;
+}
+
+
+.trace {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: blue;
+    position: absolute;
+}
+
+#info_escenari{
+    width: 100%;
+    background: whitesmoke;
+    border-radius: 50px;
+    height: 40px;
+    margin-bottom: 15px;
+    border: 2px solid rgb(255,189,69);
+}
+
+#pre_joc{
+    background-color: black;
+    opacity: 0.8;
+    width: 750px;
+    height: 450px;
+    position: absolute;
+}
+
+#inici_partida{
+    margin-top: 10px;
+
+}
+#info_necessaria{
+    font-family: gorilla;
+    color: white;
+    font-size: 2em;
+    padding-top: 20px;
+}
+
+#amagat_res{
+    display: none;
+}
+#slider3{
+    background: none !important;
+}
+#slider4{
+    background: none !important;
+}
+
+@media screen and (max-width: 1200px){
+    #pre_joc{
+        background-color: black;
+        opacity: 0.8;
+        width: 750px;
+        height: 450px;
+        position: absolute;
+        margin-left: 3%;
+    }
+    #finestrajoc{
+        width: 750px;
+        height: 450px;
+        border: 2px solid black;
+        float: left;
+        opacity: 1 !important;
+        margin-left: 3.5%;
+    }
+
+    #controlsjoc{
+        width: 100%;
+        height: 100%;
+        float: left;
+
+    }
+    #slider{
+        margin-left: 20%;
+        float:left;
+        
+    }
+    #slider2{
+        margin-top: -5px;
+        margin-right: 3.4%;
+    }
+    #slider3{
+        margin-left: 20%;
+        float:left;
+        
+    }
+    #slider4{
+        margin-top: -5px;
+        margin-right: 3.4%;
+    }
+    #p_angles{
+        text-align: left !important;
+        margin-left: 25% !important;
+        margin-top: 8px;
+    }
+    #p_vel{
+        
+        margin-top: -43px;
+        text-align: center;
+        margin-left: 36%;
+    }
+    #boto_llensador{
+        margin-bottom: 29px;
+    }
+
+}

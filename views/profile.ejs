@@ -9,9 +9,9 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>   
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>  
-        
+
         <script>
-            var mySound = new buzz.sound("sound/juliancalor.mp3");
+            /*var mySound = new buzz.sound("sound/juliancalor.mp3");
             var played = false;
             $(document).ready(function(){
                 $('#musica').click(function(){
@@ -26,16 +26,20 @@
                         played = false;
                     }
                 });      
-            });
+            });*/
+            localStorage.setItem("player_fisic",5);
+            localStorage.setItem("player_cpu",5);
         </script>
         <style>
-            
+
             body        { padding-top:40px; word-wrap:break-word; }
         </style>
     </head>
-    <body>
+    <body id="indexbody">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
+
+
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -47,27 +51,28 @@
                 </div>
                 <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="margin-left: 10px">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="/selectgamemode">Jugar</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Nav header</li>
-                                <li><a href="#">Separated link</a></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="/profile">Perfil</a></li>
+                        <li><a href="/selectgamemode">Seleccio Mode de Joc</a></li>
+                        
+                        <!--<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a href="#">Action</a></li>
+<li><a href="#">Another action</a></li>
+<li><a href="#">Something else here</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Nav header</li>
+<li><a href="#">Separated link</a></li>
+<li><a href="#">One more separated link</a></li>
+</ul>
+</li>-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a>MUSICA</a></li>
-                        <li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
-                        <li><a href="../navbar-static-top/">Static top</a></li>
-                        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/ranking">Consultar Ranking global</a></li>
+                        <li><a href="/logout">Tancar Sessió</a></li>
+                        <!--<li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
+<li><a href="../navbar-static-top/">Static top</a></li>
+<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -75,11 +80,11 @@
 
 
 
-        <div class="container">
+        <div class="container" style="background-color: whitesmoke; opacity: 0.9; border-radius: 8px;">
 
             <div class="page-header text-center">
                 <h1><span class="fa fa-anchor"></span> Perfil de l'Usuari</h1>
-                <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+                <!--<a href="/logout" class="btn btn-default btn-sm">Logout</a>-->
             </div>
 
             <div class="row">
@@ -92,15 +97,16 @@
                         <p>
                             <strong>id</strong>: <%= user._id %><br>
                             <strong>Nom d'usuari</strong>: <%= user.local.username %><br>
-                            <strong>Contrasenya cifrada</strong>: <%= user.local.password %>
-                        </p>
-
-                    </div>
-                </div>
+                            <strong>Contrasenya cifrada</strong>: <%= user.local.password %></br>
+                    <strong>Punts</strong>: <%= user.local.punts %>
+                    </p>
 
             </div>
+        </div>
 
         </div>
-    </body>
+
+    </div>
+</body>
 </html>
 

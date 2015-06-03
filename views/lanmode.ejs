@@ -1,0 +1,356 @@
+<!-- views/gamemode.ejs -->
+<!doctype html>
+<html>
+    <head>
+        <title>Gorilla[js] | LAN MODE</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <!--<link rel="stylesheet" type="text/css" href="css/buttons/default.css" />
+<link rel="stylesheet" type="text/css" href="css/buttons/component.css" />-->
+        <script src="js/classie.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">        
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="js/circular-slider.min.js"></script>
+        <link rel="stylesheet" href="css/circular-slider.min.css">
+        <!--SLIDER STUFF-->
+        <link rel="stylesheet" type="text/css" href="slicebox/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="slicebox/css/slicebox.css" />
+        <link rel="stylesheet" type="text/css" href="slicebox/css/custom.css" />
+        <script type="text/javascript" src="slicebox/js/modernizr.custom.46884.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.10/buzz.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+        <script src="js/snap.svg-min.js"></script> 
+        <!--<script type="text/javascript" src="js/engine/intersection.js"></script>
+<script type="text/javascript" src="js/engine/2d.js"></script>-->
+
+
+        <script src="js/engine/lanmode.js"></script>
+        <script src="js/engine/socket_events.js"></script> 
+        <script>
+
+
+
+
+            var angles;
+            var velocitat;
+            $(document).ready(function(){
+                //var nomdeljugador = <%= user.local.username %>;
+                $("#boto_llensador").hide();
+                var $window = $(window);
+                function checkWidth() {
+                    var windowsize = $window.width();
+                    if (windowsize < 993) {
+                        //if the window is greater than 440px wide then turn on jScrollPane..
+                        $("#jumbowrapper").hide();
+                        $("#jumbo").hide();
+                        $("#amagat_res").show();
+                    }
+
+                }
+
+
+                // Execute on load
+                checkWidth();
+                // Bind event listener
+                $(window).resize(checkWidth);
+
+
+                socket.on('get_noms',function(){
+                    socket.emit('get_noms_finals',{nom:'<%= user.local.username %>'})
+                })
+
+
+
+
+
+                $("#inici_partida").click(function(){
+                    socket.emit('comensar_ple');
+                    set_esquerra_dreta();
+                    setturns();
+                    
+                });
+
+
+                $("#boto_llensador").click(function(){
+                    $("#boto_llensador").fadeOut("fast");
+                    set_esquerra_dreta();
+                    player_animate_bras();
+                    // get the current position of the ball
+                    /*var pos = $('#ball').position();
+                    ball.x = pos.left;
+                    ball.y = pos.top;
+
+                    // read in the speed and angle
+                    ball.speed = velocitat;
+                    ball.angle = angles;
+                    ball.gravity = 9.8;
+
+                    move_object();*/
+                    //MUY TEMPORAL
+
+                    ///////////////////////////////////////////////////////////////////////////////////////
+
+
+                });
+
+
+
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////
+                var circularSlider = $('#slider').CircularSlider({ 
+                    min : 1, 
+                    max: 90, 
+                    value : 0,
+                    labelSuffix: "°",
+                    slide : function(ui,value) {
+                        ui.next().css({'background' : 'linear-gradient(' + value + 
+                                       'deg, white, cornsilk, white)'});
+                        angles=value;
+                    }
+                });
+                var circularSlider2 = $('#slider2').CircularSlider({ 
+                    min : 1, 
+                    max: 100, 
+                    value : 0,
+                    labelSuffix: "",
+                    slide : function(ui,value) {
+                        ui.next().css({'background' : 'linear-gradient(' + value + 
+                                       'deg, white, cornsilk, white)'});
+                        velocitat=value;
+                    }
+                });
+
+                //alert(planetes[1].nom);
+                var escenaritemporal;
+                var todo = false;
+
+                $("#jumbowrapper").hide();
+                $("#joc_ple").hide();
+                $("#jumbo").css("display","none");
+                /*$("#sb-slider li a img").click(function(){
+                    for(var o=0; o<3; o++){                        
+                        if($(this).attr('id')==escenaris[o]){
+                            //alert(planetes.);
+                            escenaritemporal = $(this).attr('id');
+                            $("#jumbowrapper").fadeOut('slow',function(){
+                                init("<%= user.local.username %>","cpu",escenaritemporal);
+                                $("#jumbo").fadeIn('slow');
+                            }); 
+                        }
+                    }
+
+                });*/
+                //INICIALITZEM OBJECTES I JOC EN GENERAL
+                //init("<%= user.local.username %>","cpu");
+
+
+
+                //alert($("#lluna_sorpresa"));
+            });
+
+
+            $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+        </script>
+    </head>
+    <body id="indexbody">
+
+
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <img style="width: 140px; " src="img/logo_final.png" />
+                </div>
+                <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-left: 10px">
+                        <li class="active"><a href="/profile">Perfil</a></li>
+                        <li><a href="/selectgamemode">Seleccio Mode de Joc</a></li>
+                        <li><a href="/vscpu">Seleccio escenari</a></li>
+                        <!--<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a href="#">Action</a></li>
+<li><a href="#">Another action</a></li>
+<li><a href="#">Something else here</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Nav header</li>
+<li><a href="#">Separated link</a></li>
+<li><a href="#">One more separated link</a></li>
+</ul>
+</li>-->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/ranking">Consultar Ranking global</a></li>
+                        <li><a href="/logout">Tancar Sessió</a></li>
+                        <!--<li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
+<li><a href="../navbar-static-top/">Static top</a></li>
+<li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            <div id="esperar" class="jumbotron text-center">
+
+                <h1><%= user.local.username %></h1>
+                <div>Nombre de jugadors en linia: <span id="num_jugadors_linia"></span></div>
+                <div><p>Esperant a un segon jugador...</p></div>
+
+
+
+
+            </div>
+            <div id="joc_ple" class="jumbotron text-center">
+
+                <h1><%= user.local.username %></h1>
+
+                <div><p>Has de esperar a que algu abandoni la partida</p></div>
+
+
+
+
+            </div>
+            <div id="jumbowrapper" class="jumbotron text-center">
+                <h1><span class="fa"></span>Selecciona Escenari</h1>
+                <!-- COMENSA WRAPPER AQUI -->
+                <div id="wrapper" class="wrapper">
+
+                    <ul id="sb-slider" class="sb-slider">
+                        <li>
+                            <a><img id="lluna" src="slicebox/images/escenari_lluna.jpg" alt="Lluna"/></a>
+                            <div class="sb-description">
+                                <h3>Lluna</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a><img id="terra" src="slicebox/images/mon_terra.jpg" alt="Terra"/></a>
+                            <div class="sb-description">
+                                <h3>Terra</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a><img  id="mart" src="slicebox/images/mart.jpg" alt="Mart"/></a>
+                            <div class="sb-description">
+                                <h3>Mart</h3>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <div id="shadow" class="shadow"></div>
+
+                    <div id="nav-arrows" class="nav-arrows">
+                        <a href="#">Next</a>
+                        <a href="#">Previous</a>
+                    </div>
+                </div>
+            </div><!-- /wrapper -->
+            <div id="amagat_res" class="jumbotron text-center">
+                <h1>Amb resolucio més petita a 960px no pots jugar, ho sento</h1>
+            </div>
+
+            <div id="jumbo" class="jumbotron text-center">
+
+                <h1 id="jugador_turn"><span id="marcador_player"></span><span id="jugador_info"></span><span> vs </span><span id="cpu_info"></span><span id="marcador_cpu"></span></h1>
+                <div id="info_escenari"></div>
+                <div id="pre_joc">
+                    <p id="info_necessaria">Al fer clic al seguent boto es generarà el primer torn de manera aleatoria, fins que els dos jugadors no hagin clicat a començar no s'iniciara el joc</p>
+                    <button id="inici_partida" type="button" class="btn btn-success">Començar!</button>
+                </div>
+                <svg id="finestrajoc"></svg>
+                <!--<div id="ball"></div>-->
+                <div id="controlsjoc">
+
+                    <p id="p_angles">
+                        <label>Angles:</label>
+                    <div id="slider"></div>
+
+                    </p>
+                <p id="p_vel">
+                    <label>Velocitat:</label>
+                <div id="slider2"></div>
+
+                </p>
+            <button id="boto_llensador" type="button" class="btn btn-success">Llençar!</button>
+
+            <!--
+<div id="slider-vertical" style="height:200px; margin: 0px auto;"></div>
+<p>
+<label for="amount">Velocitat:</label>
+<input type="text" id="velocitat" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+<div id="slider-vertical2" style="height:200px; margin: 0px auto;"></div>-->
+        </div>
+        <div id="footer">
+            <span style="color: black !important">Developed by: Marc Parra</span>
+        </div>
+
+        </div>
+    </div>
+<script type="text/javascript" src="slicebox/js/jquery.slicebox.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+        var Page = (function() {
+
+            var $navArrows = $( '#nav-arrows' ).hide(),
+                $shadow = $( '#shadow' ).hide(),
+                slicebox = $( '#sb-slider' ).slicebox( {
+                    onReady : function() {
+
+                        $navArrows.show();
+                        $shadow.show();
+
+                    },
+                    orientation : 'r',
+                    cuboidsRandom : true,
+                    disperseFactor : 30
+                } ),
+
+                init = function() {
+
+                    initEvents();
+
+                },
+                initEvents = function() {
+
+                    // add navigation events
+                    $navArrows.children( ':first' ).on( 'click', function() {
+
+                        slicebox.next();
+                        return false;
+
+                    } );
+
+                    $navArrows.children( ':last' ).on( 'click', function() {
+
+                        slicebox.previous();
+                        return false;
+
+                    } );
+
+                };
+
+            return { init : init };
+
+        })();
+
+        Page.init();
+
+    });
+</script>
+</body>
+</html>
+

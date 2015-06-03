@@ -1,5 +1,11 @@
 // config/passport.js
 
+
+//var collection;
+//We need to work with "MongoClient" interface in order to connect to a mongodb server.
+
+/////////////////////////////////////////////////////////////////////////
+
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 
@@ -71,6 +77,7 @@ module.exports = function(passport) {
                             throw err;
                         return done(null, newUser);
                     });
+                    newUser.local.punts = 1000;
                 }
 
             });    
@@ -108,10 +115,26 @@ module.exports = function(passport) {
             if (!user.validPassword(password))
                 return done(null, false, req.flash('loginMessage', 'Contrasenya incorrecte')); // create the loginMessage and save it to session as flashdata
 
+
             // all is well, return successful user
             return done(null, user);
         });
 
     }));
 
+
+
+    //UPDATE PUNTS DE LA BASE DE DADES
+
+    passport.use('fi_joc', new LocalStrategy({
+
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+                                             function(req, username, password, done) { // callback with email and password from our form
+
+
+    }));
+
 };
+
+

@@ -1,3 +1,5 @@
+var mongodb = require('mongodb');
+
 // app/routes.js
 module.exports = function(app, passport) {
 
@@ -52,35 +54,126 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
-    
+
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/profile', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
-    
-        // process the login form
+
+    // process the login form
     app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/profile', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
-    
-    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //FUNCIO PER UPDETEJAR PUNTS (MOLT IMPORTANT)
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    app.get('/fi_joc',isLoggedIn,function(req,res) {
+
+        var MongoClient = mongodb.MongoClient;
+
+        // Connection URL. This is where your mongodb server is running.
+        var url = 'mongodb://localhost/gorillajsfinal';
+
+
+        MongoClient.connect(url, function (err, db) {
+            if (err) {
+                console.log('Unable to connect to the mongoDB server. Error:', err);
+            } else {
+                user = req.user;
+                //HURRAY!! We are connected. :)
+                console.log('Connection established to', url);
+
+                // Get the documents collection
+                var collection = db.collection('usuaris');
+                collection.update({"local.username": user.local.username/*POSAR VARIABLE CORRECTE*/}, {$set: {"local.punts": user.local.punts+200/* POSAR VARIABLE CORRECTA */}},{upsert:true}, function (err, numUpdated) {
+                    if (err) {
+                        console.log(err);
+                    } else if (numUpdated) {
+                        console.log('Punts actualitzats correctament');
+                    } else {
+                        console.log('No document found with defined "find" criteria!');
+                    }
+                    //Close connection
+                    db.close();
+                    res.redirect('/selectgamemode');
+                });
+            }});
+    });
+
+    app.get('/fi_joc_negatiu',isLoggedIn,function(req,res) {
+
+        var MongoClient = mongodb.MongoClient;
+
+        // Connection URL. This is where your mongodb server is running.
+        var url = 'mongodb://localhost/gorillajsfinal';
+
+
+        MongoClient.connect(url, function (err, db) {
+            if (err) {
+                console.log('Unable to connect to the mongoDB server. Error:', err);
+            } else {
+                user = req.user;
+                //HURRAY!! We are connected. :)
+                console.log('Connection established to', url);
+
+                // Get the documents collection
+                var collection = db.collection('usuaris');
+                collection.update({"local.username": user.local.username/*POSAR VARIABLE CORRECTE*/}, {$set: {"local.punts": user.local.punts-200/* POSAR VARIABLE CORRECTA */}},{upsert:true}, function (err, numUpdated) {
+                    if (err) {
+                        console.log(err);
+                    } else if (numUpdated) {
+                        console.log('Punts actualitzats correctament');
+                    } else {
+                        console.log('No document found with defined "find" criteria!');
+                    }
+                    //Close connection
+                    db.close();
+                    res.redirect('/selectgamemode');
+                });
+            }});
+    });
+
+    //RANKING GLOBAL
+
+    app.get('/ranking', isLoggedIn, function(req, res) {
+        res.render('ranking.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+
     ///SELECCIONAR jugar contra maquina o jugar contra jugador en LAN
     app.get('/selectgamemode', isLoggedIn, function(req, res) {
         res.render('gamemode.ejs', {
             user : req.user // get the user out of session and pass to template
         });
     });
-    
+
     //VSCPU MODE
     app.get('/vscpu', isLoggedIn, function(req, res) {
         res.render('vscpu.ejs', {
             user : req.user // get the user out of session and pass to template
         });
     });
+
+    //VSCPU MODE
+    app.get('/lanmode', isLoggedIn, function(req, res) {
+        res.render('lanmode.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+
+    //VSCPU MODE
+    app.get('/1vs1', isLoggedIn, function(req, res) {
+        res.render('1vs1.ejs', {
+            user : req.user // get the user out of session and pass to template
+        });
+    });
+
     
+
 };
 
 // route middleware to make sure a user is logged in
@@ -94,4 +187,4 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-    // process the signup form
+// process the signup form

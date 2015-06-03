@@ -21,7 +21,7 @@
                 });
                 $('#lanmode').click(function(){
                     setTimeout(function () {
-                        window.location.href = "/lanmode"; 
+                        window.location.href = "/1vs1"; 
                     }, 1200); //Redirigira al cap de 1.2 Segons
 
                 });
@@ -32,6 +32,8 @@
     <body id="indexbody">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
+
+
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -43,10 +45,10 @@
                 </div>
                 <div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="margin-left: 10px">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="/selectgamemode">Jugar</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li class="dropdown">
+                        <li class="active"><a href="/profile">Perfil</a></li>
+                        <li><a href="/selectgamemode">Seleccio Mode de Joc</a></li>
+                        <li><a href="/vscpu">Seleccio escenari</a></li>
+                        <!--<li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Action</a></li>
@@ -57,13 +59,14 @@
                                 <li><a href="#">Separated link</a></li>
                                 <li><a href="#">One more separated link</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a>MUSICA</a></li>
-                        <li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
+                        <li><a href="/ranking">Consultar Ranking global</a></li>
+                        <li><a href="/logout">Tancar Sessió</a></li>
+                        <!--<li><div style="width: 35px; height: 35px" id="musica" type="button"></div></li>
                         <li><a href="../navbar-static-top/">Static top</a></li>
-                        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>-->
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -78,7 +81,7 @@
                         <button id="vscpu" class="btn btn-8 btn-8g"><%= user.local.username %> vs CPU</button>
                     </p>
                     <p class="perspective">
-                        <button id="lanmode" class="btn btn-8 btn-8g">LAN MODE</button>
+                        <button id="lanmode" class="btn btn-8 btn-8g">1 vs 1</button>
                     </p>
                 </section>
             </div>

@@ -9,8 +9,10 @@ var userSchema = mongoose.Schema({
     local            : {
         username     : String,
         password     : String,
+        punts: Number,
     }
 });
+
 
 // methods ======================
 // generating a hash
@@ -22,6 +24,10 @@ userSchema.methods.generateHash = function(password) {
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
+
+userSchema.methods.insertpoints = function(){
+    this.local.insert( { punts:1000 } );
+}
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('Usuaris', userSchema);
